@@ -86,5 +86,5 @@ A simple yet powerful note-taking web application that allows users to:
 
 📧 **Email:** [mageshbalram4@gmail.com](mailto:mageshbalram4@gmail.com)
 
-[Project link](https://roadmap.sh/projects/url-shortening-service)](https://roadmap.sh/projects/markdown-note-taking-app)
+[Project link](https://roadmap.sh/projects/url-shortening-service)
 ---
