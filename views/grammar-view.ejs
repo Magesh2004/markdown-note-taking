@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grammar Issues - <%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-dark d-flex flex-column min-vh-100">
+  <div class="container mt-5 mb-5">
+    <h1 class="text-center">Grammar Mistakes in "<%= title %>"</h1>
+    <hr>
+    <% if (issues.length === 0) { %>
+      <div class="alert alert-success mt-4">No grammar issues found. ✅</div>
+    <% } else { %>
+      <ul class="list-group mt-4">
+        <% issues.forEach(issue => { %>
+          <li class="list-group-item">
+            ❌ <strong><%= issue.bad %></strong><br>
+            ✅ <strong>Suggestions:</strong> <%= issue.better %><br>
+            📝 <em><%= issue.description %></em>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
+    © <a href="https://github.com/Magesh2004" class="text-white text-decoration-none">@magesh</a>
+  </footer>
+</body>
+</html>

@@ -5,8 +5,12 @@ const path = require('path')
 const {marked} = require('marked')
 
 const multer = require('multer')
-const prisma = require('./config/db')
 const upload = multer({storage:multer.memoryStorage()});
+
+const {PrismaClient} = require('./generated/prisma')
+const axios = require('axios')
+
+const prisma = new PrismaClient()
 
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
@@ -54,4 +58,36 @@ app.get('/notes/:id',async(req,res)=>{
     const html = marked.parse(markdown)
     res.render('view-note',{title:notes.title,html})
 })
+app.get('/grammar/:id',async(req,res)=>{
+    const id = parseInt(req.params.id)
+    const notes =await prisma.note.findUnique({
+        where:{
+            id
+        }
+    })
+    if(!notes)return res.send("Note not found")
+    const markdown = Buffer.from(notes.file).toString('utf-8')
+    try{
+        const response = await axios.get('https://api.textgears.com/grammar', {
+        params: {
+            text: markdown,
+            language: 'en-GB',
+            key: process.env.API_KEY
+        }
+        });
+        const grammarIssues = response.data.response.errors;
 
+        const issues = grammarIssues.map(err => ({
+        bad: err.bad,
+        better: err.better.join(', '),
+        description: err.description
+        }));
+        res.render('grammar-view', {
+            title: notes.title,
+            issues,
+        });
+
+    }catch(e){
+        
+    }
+});

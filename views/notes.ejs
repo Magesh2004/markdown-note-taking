@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Markdown Note Upload</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Upload the file</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <label>Note Title:</label>
-        <input type="text" name="title" required>
-        <label>Upload Markdown:</label>
-        <input type="file" name="markdown" accept=".md" required>
-        <button type="submit">Upload</button>
+<body class="bg-light text-dark d-flex flex-column min-vh-100">
+  <div class="container mt-5 mb-5">
+    <h1 class="mb-4 text-center">Upload a Markdown Note</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="mb-5 shadow p-4 bg-white rounded">
+      <div class="mb-3">
+        <label class="form-label">Note Title</label>
+        <input type="text" name="title" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Upload Markdown</label>
+        <input type="file" name="markdown" accept=".md" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 
-    <h2>List of Notes</h2>
-  <ul>
-    <% notes.forEach(note => { %>
-      <li>
-        <strong><%= note.title %></strong>
-        <a href="/notes/<%= note.id %>">View</a>
-      </li>
-    <% }) %>
-  </ul>
+    <h2 class="mb-3">List of Notes</h2>
+    <ul class="list-group">
+      <% notes.forEach(note => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong><%= note.title %></strong>
+          <div>
+            <a href="/grammar/<%= note.id %>" class="btn btn-sm btn-warning me-2">Check Grammar</a>
+            <a href="/notes/<%= note.id %>" class="btn btn-sm btn-info">View</a>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
+    © <a href="https://github.com/Magesh2004" class="text-white text-decoration-none">@magesh</a>
+  </footer>
 </body>
 </html>
