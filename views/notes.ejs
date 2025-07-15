@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Upload the file</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label>Note Title:</label>
+        <input type="text" name="title" required>
+        <label>Upload Markdown:</label>
+        <input type="file" name="markdown" accept=".md" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>List of Notes</h2>
+  <ul>
+    <% notes.forEach(note => { %>
+      <li>
+        <strong><%= note.title %></strong>
+        <a href="/notes/<%= note.id %>">View</a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
